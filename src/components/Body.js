@@ -22,7 +22,6 @@ const Body = () => {
                 }} />
                 <button className="search-btn" onClick={() => {
                     const data = filterRestaurant(searchInput, restaurants);
-                    console.warn("data", data)
                     setReataurants(data)
                 }}>Search</button>
             </div>
