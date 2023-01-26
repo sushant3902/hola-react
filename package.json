@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "This is food delivery app",
   "scripts": {
-    "start": "parcel index.html",
+    "start": "parcel index.html -p 8080",
     "build": "parcel build index.html",
     "test": "jest"
   },
@@ -25,7 +25,8 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.7.0"
   },
   "browserslist": [
     "last 2 versions"
