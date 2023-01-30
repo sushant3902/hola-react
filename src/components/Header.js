@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Logo from "../assets/image/download.png";
 import { Link } from "react-router-dom";
 import useAuth from "../utils/useAuth";
 import useOnline from "../utils/useOnline";
 import Online from "../assets/image/online.png";
+import UserContext from "../utils/UserContext";
 
 const Title = () => (
     <a href="/">
@@ -15,6 +16,8 @@ const onlineText = <div className="flex w-24 justify-center items-center"><img c
 const Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useAuth()
     const isOnline = useOnline();
+
+    const {user} = useContext(UserContext)
 
     return (
         <div className="flex justify-between bg-pink-100 shadow-md sm:bg-blue-50">
@@ -36,8 +39,12 @@ const Header = () => {
                     </li>
                 </ul>
             </div>
+            <div>
+                <p>{user.name}</p>
+                <p>{user.email}</p>
+            </div>
             {isOnline ? onlineText : "offline"}
-            {isLoggedIn? <button className="bg-red-300 text-white font-bold p-2 my-8 mx-1 rounded-md w-28" onClick={() => setIsLoggedIn(false)}>Logout</button> : <button className="bg-purple-900 text-white font-bold p-2 my-8 mr-1 rounded-md w-28" onClick={() => setIsLoggedIn(true)}>Login</button>}
+            {isLoggedIn? <Link to={"/logout"}  className="bg-red-300 text-white text-center font-bold p-3 my-8 mx-1 rounded-md w-28" onClick={() => setIsLoggedIn(false)}>Logout</Link> : <Link to={"/login"} className="bg-purple-900 text-white text-center font-bold p-3 my-8 mr-1 rounded-md w-28" onClick={() => setIsLoggedIn(true)}>Login</Link>}
             
         </div>
     )

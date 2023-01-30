@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -7,12 +7,16 @@ import Error from "./components/Error";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Contact from "./assets/image/Contact";
 import RestaurantMenu from "./components/RestaurantMenu";
-import Profile from "./components/Profile";
+import ProfileClass from "./components/ProfileClass";
 import Shimmer from "./components/Shimmer";
 // import Instamart from "./components/Instamart";
+import UserContext from "./utils/UserContext";
 
-const Instamart = lazy(() => import("./components/Instamart"))
+const Login = lazy(() => import("./components/Login"))
 const About = lazy(() => import("./components/About"))
+const Instamart = lazy(() => import("./components/Instamart"))
+const Logout = lazy(() => import("./components/Logout"))
+
 //Config Driven UI
 const config = [
     {
@@ -48,8 +52,14 @@ const config = [
 ];
 
 const AppLayout = () => {
+    const [user, setUser] = useState({
+        name: "Sushant Singh",
+        email: "sushant@gmail.com"
+    })
     return (
-        <>
+        <UserContext.Provider
+            value={{user: user, setUser: setUser}}
+        >
             <Header />
             {/* <About />
             <Body />
@@ -57,7 +67,7 @@ const AppLayout = () => {
             {<Outlet />    /* //a placeholder for body , contact, aboutus */}
 
             <Footer />
-        </>
+        </UserContext.Provider>
     )
 }
 
@@ -80,7 +90,7 @@ const appRouter = createBrowserRouter([
                 children: [
                     {
                         path: "profile",
-                        element: <Profile />
+                        element: <ProfileClass />
 
                     }
                 ]
@@ -101,6 +111,22 @@ const appRouter = createBrowserRouter([
                 </Suspense>
                 )
 
+            },
+            {
+                path: "/login",
+                element:(
+                    <Suspense fallback={<h2>..-Loading</h2>}>
+                        <Login />
+                    </Suspense>
+                )
+            },
+            {
+                path: "/logout",
+                element: (
+                    <Suspense fallback={<h2>Loading</h2>} >
+                        <Logout />
+                    </Suspense>
+                )
             }
         ]
     }, 
