@@ -1,17 +1,14 @@
 
 import {IMG_CDN_URL} from "../constants";
-[
-    "Pizzas"
-]
 
 
 const RestaurantCard = ({cloudinaryImageId, name, cuisines, lastMileTravelString}) => {
     return (
-        <div className="card">
-            <img src={IMG_CDN_URL+cloudinaryImageId} />
-            <h2>{name}</h2>
+        <div className="w-56 h-72 p-2 m-2 shadow-lg bg-pink-100">
+            <img alt="restaurant" src={IMG_CDN_URL+cloudinaryImageId} />
+            <h2 className="font-bold text-xl">{name}</h2>
             <h3>{cuisines.join(", ")}</h3>
-            <h4>{lastMileTravelString} mins</h4>
+            <h4>{lastMileTravelString}</h4>
         </div>
     )
 };

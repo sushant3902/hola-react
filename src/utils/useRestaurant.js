@@ -9,10 +9,12 @@ const useRestaurant = (resId) => {
     }, []);
 
     async function getRestaurantInfo() {
-        const data = await fetch(FETCH_MENU_URL+resId)
-        const json = await data.json()
-        setRestaurant(json?.data)
-        console.warn("data", json?.data)
+        setTimeout(async () => {
+            const data = await fetch(FETCH_MENU_URL+resId)
+            const json = await data.json()
+            setRestaurant(json?.data)
+            console.warn("data", json?.data)
+        }, 5000)
     }
 
     return restaurant;
