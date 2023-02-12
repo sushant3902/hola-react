@@ -5,19 +5,21 @@ import useAuth from "../utils/useAuth";
 import useOnline from "../utils/useOnline";
 import Online from "../assets/image/online.png";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 
 const Title = () => (
     <a href="/">
-        <img className="h-28 p-2" alt="food-villa" src={Logo} />
+        <img data-testid="logo" className="h-28 p-2" alt="food-villa" src={Logo} />
     </a>
 );
-const onlineText = <div className="flex w-24 justify-center items-center"><img className="w-6 h-6" src={Online}/> <p className="text-green-900">online</p></div>;
+const onlineText = <div className="flex w-24 justify-center items-center"><img className="w-6 h-6" src={Online}/> <p className="text-green-900" data-testid="online-status">online</p></div>;
 
 const Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useAuth()
     const isOnline = useOnline();
 
     const {user} = useContext(UserContext)
+    const cartItems = useSelector(store => store.cart.items)
 
     return (
         <div className="flex justify-between bg-pink-100 shadow-md sm:bg-blue-50">
@@ -33,9 +35,11 @@ const Header = () => {
                     <li className="px-2">
                         <Link to="/contact">Contact</Link>
                     </li>
-                    <li className="px-2">Cart</li>
                     <li className="px-2">
                         <Link to="/instamart">Instamart</Link>
+                    </li>
+                    <li className="px-2">
+                        <Link data-testid="cart" to="/cart">Cart {cartItems?.length}</Link>
                     </li>
                 </ul>
             </div>

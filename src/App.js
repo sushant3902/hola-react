@@ -11,6 +11,9 @@ import ProfileClass from "./components/ProfileClass";
 import Shimmer from "./components/Shimmer";
 // import Instamart from "./components/Instamart";
 import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import store from "./utils/store";
+import Cart from "./components/Cart";
 
 const Login = lazy(() => import("./components/Login"))
 const About = lazy(() => import("./components/About"))
@@ -57,17 +60,19 @@ const AppLayout = () => {
         email: "sushant@gmail.com"
     })
     return (
-        <UserContext.Provider
-            value={{user: user, setUser: setUser}}
-        >
-            <Header />
-            {/* <About />
-            <Body />
-            <Contact /> */}
-            {<Outlet />    /* //a placeholder for body , contact, aboutus */}
+        <Provider store={store}>
+            <UserContext.Provider
+                value={{user: user, setUser: setUser}}
+            >
+                <Header />
+                {/* <About />
+                <Body />
+                <Contact /> */}
+                {<Outlet />    /* //a placeholder for body , contact, aboutus */}
 
-            <Footer />
-        </UserContext.Provider>
+                <Footer />
+            </UserContext.Provider>
+        </Provider>
     )
 }
 
@@ -111,6 +116,10 @@ const appRouter = createBrowserRouter([
                 </Suspense>
                 )
 
+            },
+            {
+                path: "/cart",
+                element: <Cart />
             },
             {
                 path: "/login",
